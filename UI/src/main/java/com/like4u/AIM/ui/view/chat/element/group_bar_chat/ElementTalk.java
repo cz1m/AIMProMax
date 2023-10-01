@@ -1,4 +1,4 @@
-package com.like4u.AIM.ui.view.chat.group_bar_chat;
+package com.like4u.AIM.ui.view.chat.element.group_bar_chat;
 
 import com.like4u.AIM.ui.util.DateUtil;
 import com.like4u.AIM.ui.util.Ids;

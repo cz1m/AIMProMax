@@ -15,6 +15,10 @@ public abstract class UIObject extends Stage {
         return (T) root.lookup("#" + id);
     }
 
+    /**
+     * 清除列表中的选中标识
+     * @param listViews 列表
+     */
     public void clearViewListSelectedAll(ListView<Pane>... listViews) {
         for (ListView<Pane> listView : listViews) {
             listView.getSelectionModel().clearSelection();

@@ -11,11 +11,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-/**
- * 博  客：http://bugstack.cn
- * 公众号：bugstack虫洞栈 | 沉淀、分享、成长，让自己和他人都能有所收获！
- * create by 小傅哥 on @2020
- */
+
 public abstract class ChatInit extends UIObject {
 
     private static final String RESOURCE_NAME = "/fxml/chat/chat.fxml";
@@ -40,8 +36,12 @@ public abstract class ChatInit extends UIObject {
         initStyle(StageStyle.TRANSPARENT);
         setResizable(false);
         this.getIcons().add(new Image("/fxml/chat/img/head/logo.png"));
+        obtain();
         initView();
         initEventDefine();
     }
-
+    private void obtain() {
+        // 可以预加载
+        txt_input = $("txt_input", TextArea.class);
+    }
 }

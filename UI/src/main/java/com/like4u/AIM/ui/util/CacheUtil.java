@@ -2,7 +2,7 @@ package com.like4u.AIM.ui.util;
 
 
 
-import com.like4u.AIM.ui.view.chat.group_bar_chat.ElementTalk;
+import com.like4u.AIM.ui.view.chat.element.group_bar_chat.ElementTalk;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
