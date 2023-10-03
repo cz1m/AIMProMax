@@ -4,8 +4,11 @@ import com.like4u.AIM.ui.view.chat.data.RemindCount;
 import com.like4u.AIM.ui.view.chat.data.TalkBoxData;
 import com.like4u.AIM.ui.view.chat.element.group_bar_friend.*;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 
@@ -31,26 +34,6 @@ public class ChatView {
     }
 
     /**
-     * 好友列表添加工具方法‘新的朋友’
-     */
-    private void initAddFriendLuck() {
-        ListView<Pane> friendList = chatInit.$("friendList", ListView.class);
-        ObservableList<Pane> items = friendList.getItems();
-
-        ElementFriendTag elementFriendTag = new ElementFriendTag("新的朋友");
-        items.add(elementFriendTag.pane());
-
-        ElementFriendLuck element = new ElementFriendLuck();
-        Pane pane = element.pane();
-        items.add(pane);
-
-        // 面板填充和事件
-        pane.setOnMousePressed(event -> {
-            chatInit.clearViewListSelectedAll(chatInit.$("userListView", ListView.class), chatInit.$("groupListView", ListView.class));
-        });
-    }
-
-    /**
      * 好友列表添加‘公众号’
      */
     private void addFriendSubscription() {
@@ -66,6 +49,8 @@ public class ChatView {
 
         pane.setOnMousePressed(event -> {
             chatInit.clearViewListSelectedAll(chatInit.$("userListView", ListView.class), chatInit.$("groupListView", ListView.class));
+            Pane subPane = element.subPane();
+            setContentPaneBox("itstack-naive-chat-ui-chat-friend-subscription", "公众号", subPane);
         });
     }
 
@@ -184,4 +169,73 @@ public class ChatView {
         msgRemindLabel.setVisible(false);
         msgRemindLabel.setUserData(new RemindCount(0));
     }
+
+    /**
+     * 好友列表添加工具方法‘新的朋友’
+     */
+    private void initAddFriendLuck() {
+        ListView<Pane> friendList = chatInit.$("friendList", ListView.class);
+        ObservableList<Pane> items = friendList.getItems();
+
+        ElementFriendTag elementFriendTag = new ElementFriendTag("新的朋友");
+        items.add(elementFriendTag.pane());
+        //吧添加用户加入到边栏
+        ElementFriendLuck element = new ElementFriendLuck();
+        Pane pane = element.pane();
+        items.add(pane);
+
+        // 面板填充和事件
+        pane.setOnMousePressed(event -> {
+            Pane friendLuckPane = element.friendLuckPane();
+            setContentPaneBox("itstack-naive-chat-ui-chat-friend-luck", "新的朋友", friendLuckPane);
+            chatInit.clearViewListSelectedAll(chatInit.$("userListView", ListView.class), chatInit.$("groupListView", ListView.class));
+            ListView<Pane> listView = element.friendLuckListView();
+            listView.getItems().clear();
+            System.out.println("添加好友");
+        });
+
+        // 搜索框事件
+        TextField friendLuckSearch = element.friendLuckSearch();
+
+        // 键盘事件；搜索好友
+        friendLuckSearch.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                String text = friendLuckSearch.getText();
+                if (null == text) text = "";
+                if (text.length() > 30) text = text.substring(0, 30);
+                text = text.trim();
+                System.out.println("搜搜好友：" + text);
+                // 搜索清空元素
+                element.friendLuckListView().getItems().clear();
+
+                // 添加朋友
+                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000005", "比丘卡", "05_50", 0).pane());
+                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000006", "兰兰", "06_50", 1).pane());
+                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000007", "Alexa", "07_50", 2).pane());
+
+            }
+        });
+
+    }
+
+    /**
+     * group_bar_chat：填充对话列表 & 对话框名称
+     *
+     * @param id   用户、群组等ID
+     * @param name 用户、群组等名称
+     * @param node 展现面板
+     */
+    void setContentPaneBox(String id, String name, Node node) {
+        // 填充对话列表
+        Pane content_pane_box = chatInit.$("content_pane_box", Pane.class);
+        content_pane_box.setUserData(id);
+        content_pane_box.getChildren().clear();
+        content_pane_box.getChildren().add(node);
+        // 对话框名称
+        Label info_name = chatInit.$("content_name", Label.class);
+        info_name.setText(name);
+    }
+
+
+
 }

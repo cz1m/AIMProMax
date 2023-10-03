@@ -11,6 +11,10 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * 对话窗口初始化：
+ *
+ */
 
 public abstract class ChatInit extends UIObject {
 

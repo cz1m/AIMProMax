@@ -6,6 +6,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ *  底层UI相关调用：使用Stage的API获取窗口大小和位置，获取画笔等
+ */
 public abstract class UIObject extends Stage {
     protected Parent root;
     private double xOffset;
@@ -38,6 +41,20 @@ public abstract class UIObject extends Stage {
         root.setOnMouseReleased(event -> {
             root.setCursor(Cursor.DEFAULT);
         });
+    }
+    public double x(){
+        return getX();
+    }
+
+    public double y(){
+        return getY();
+    }
+    public double width(){
+        return getWidth();
+    }
+
+    public double height(){
+        return getHeight();
     }
 
     // 初始化页面

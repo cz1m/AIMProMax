@@ -1,6 +1,9 @@
 package com.like4u.AIM.ui.view.chat;
 
+import com.like4u.AIM.ui.UIObject;
+import com.like4u.AIM.ui.util.CacheUtil;
 import com.like4u.AIM.ui.view.chat.data.TalkBoxData;
+import com.like4u.AIM.ui.view.face.FaceController;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -30,6 +33,7 @@ public class ChatEventDefine {
         barFriend();         // 好友
         doEventTextSend();   // 发送消息事件[键盘]
         doEventTouchSend();  // 发送消息事件[按钮]
+        doEventToolFace();   // 表情窗体
     }
 
     private void min() {
@@ -148,7 +152,7 @@ public class ChatEventDefine {
         // 发送消息
         System.out.println("发送消息：" + msg);
         // 发送事件给自己添加消息
-        chatMethod.addTalkMsgRight(talkBoxData.getTalkId(), msg, msgDate, true, true, false);
+        chatMethod.addTalkMsgRight(talkBoxData.getTalkId(), msg, 0, msgDate, true, true, false);
         txt_input.clear();
     }
 
@@ -160,6 +164,9 @@ public class ChatEventDefine {
             // 2. 切换到对话框窗口
             switchBarChat(chatInit.$("bar_chat", Button.class), chatInit.$("group_bar_chat", Pane.class), true);
             switchBarFriend(chatInit.$("bar_friend", Button.class), chatInit.$("group_bar_friend", Pane.class), false);
+            //新添加进去的消息设置为已读
+            chatMethod.clearRemain(userFriendId);
+
             // 3. 事件处理；填充到对话框
             System.out.println("事件处理；填充到对话框");
         });
@@ -172,8 +179,17 @@ public class ChatEventDefine {
             // 2. 切换到对话框窗口
             switchBarChat(chatInit.$("bar_chat", Button.class), chatInit.$("group_bar_chat", Pane.class), true);
             switchBarFriend(chatInit.$("bar_friend", Button.class), chatInit.$("group_bar_friend", Pane.class), false);
+            //新添加进去的消息设置为已读
+            chatMethod.clearRemain(groupId);
             // 3. 事件处理；填充到对话框
             System.out.println("事件处理；填充到对话框");
+        });
+    }
+    private void doEventToolFace() {
+        FaceController face = new FaceController(chatInit, chatInit, chatEvent, chatMethod);
+        Button tool_face = chatInit.$("tool_face", Button.class);
+        tool_face.setOnMousePressed(event -> {
+            face.doShowFace(chatMethod.getToolFaceX(), chatMethod.getToolFaceY());
         });
     }
 

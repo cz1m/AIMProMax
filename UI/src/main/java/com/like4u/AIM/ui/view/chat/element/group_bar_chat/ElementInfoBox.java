@@ -24,9 +24,10 @@ public class ElementInfoBox {
      * @param userNickName 好友昵称
      * @param userHead 头像
      * @param msg 消息
+     * @param msgType 消息类型
      * @return 构建好的好友消息窗体
      */
-    public Pane left(String userNickName, String userHead, String msg) {
+    public Pane left(String userNickName, String userHead, String msg,Integer msgType) {
 
         double autoHeight = AutoSizeTool.getHeight(msg);
         double autoWidth = AutoSizeTool.getWidth(msg);
@@ -62,22 +63,36 @@ public class ElementInfoBox {
         infoContentArrow.getStyleClass().add("box_infoContent_arrow");
         children.add(infoContentArrow);
 
-        // 内容
-        infoContent = new TextArea();
-        infoContent.setPrefWidth(autoWidth);
-        infoContent.setPrefHeight(autoHeight);
-        infoContent.setLayoutX(80);
-        infoContent.setLayoutY(30);
-        infoContent.setWrapText(true);
-        infoContent.setEditable(false);
-        infoContent.setText(msg);
-        infoContent.getStyleClass().add("box_infoContent_left");
-        children.add(infoContent);
+
+        switch (msgType){
+            case 0:
+                // 内容
+                infoContent = new TextArea();
+                infoContent.setPrefWidth(autoWidth);
+                infoContent.setPrefHeight(autoHeight);
+                infoContent.setLayoutX(80);
+                infoContent.setLayoutY(30);
+                infoContent.setWrapText(true);
+                infoContent.setEditable(false);
+                infoContent.setText(msg);
+                infoContent.getStyleClass().add("box_infoContent_left");
+                children.add(infoContent);
+                break;
+            case 1:
+                Label infoContentFace = new Label();
+                infoContentFace.setPrefWidth(60);
+                infoContentFace.setPrefHeight(40);
+                infoContentFace.setLayoutX(80);
+                infoContentFace.setLayoutY(30);
+                infoContentFace.setStyle(String.format("-fx-background-image: url('/fxml/face/img/%s.png');-fx-background-position: center center;-fx-background-repeat: no-repeat;-fx-background-color: #ffffff;-fx-border-width: 0 1px 1px 0;-fx-border-radius: 2px;-fx-background-radius: 2px;", msg));
+                children.add(infoContentFace);
+                break;
+        }
 
         return pane;
     }
 
-    public Pane right(String userNickName, String userHead, String msg) {
+    public Pane right(String userNickName, String userHead, String msg,Integer msgType) {
 
         double autoHeight = AutoSizeTool.getHeight(msg);
         double autoWidth = AutoSizeTool.getWidth(msg);
@@ -106,17 +121,30 @@ public class ElementInfoBox {
         infoContentArrow.getStyleClass().add("box_infoContent_arrow");
         children.add(infoContentArrow);
 
-        // 内容
-        infoContent = new TextArea();
-        infoContent.setPrefWidth(autoWidth);
-        infoContent.setPrefHeight(autoHeight);
-        infoContent.setLayoutX(755 - autoWidth);
-        infoContent.setLayoutY(15);
-        infoContent.setWrapText(true);
-        infoContent.setEditable(false);
-        infoContent.setText(msg);
-        infoContent.getStyleClass().add("box_infoContent_right");
-        children.add(infoContent);
+        switch (msgType){
+            case 0:
+                // 内容：文字
+                infoContent = new TextArea();
+                infoContent.setPrefWidth(autoWidth);
+                infoContent.setPrefHeight(autoHeight);
+                infoContent.setLayoutX(755 - autoWidth);
+                infoContent.setLayoutY(15);
+                infoContent.setWrapText(true);
+                infoContent.setEditable(false);
+                infoContent.setText(msg);
+                infoContent.getStyleClass().add("box_infoContent_right");
+                children.add(infoContent);
+                break;
+            case 1:
+                Label infoContentFace = new Label();
+                infoContentFace.setPrefWidth(60);
+                infoContentFace.setPrefHeight(40);
+                infoContentFace.setLayoutX(755 - 60);
+                infoContentFace.setLayoutY(15);
+                infoContentFace.setStyle(String.format("-fx-background-image: url('/fxml/face/img/%s.png');-fx-background-position: center center;-fx-background-repeat: no-repeat;-fx-background-color: #9eea6a;-fx-border-width: 0 1px 1px 0;-fx-border-radius: 2px;-fx-background-radius: 2px;", msg));
+                children.add(infoContentFace);
+                break;
+        }
 
         return pane;
     }
