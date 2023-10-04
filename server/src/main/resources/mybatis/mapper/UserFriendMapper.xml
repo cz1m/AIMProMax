@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.like4u.server.infrastructure.dao.IUserFriendDao">
+
+    <select id="queryUserFriendIdList" resultType="java.lang.String">
+        SELECT userFriendId FROM user_friend where userId = #{userId}
+    </select>
+
+    <select id="queryUserFriendById" resultType="com.like4u.server.infrastructure.po.UserFriend">
+        select userFriendId from user_friend
+        where userId = #{req.userId} and userFriendId = #{req.userFriendId}
+    </select>
+
+    <insert id="addUserFriendList" parameterType="java.util.List">
+        insert into user_friend
+        ( userId, userFriendId, createTime, updateTime )  values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userId},
+            #{item.userFriendId},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
+</mapper>
