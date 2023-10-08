@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.like4u.server.infrastructure.dao.ITalkBoxDao">
-    <select id="queryTalkBoxList" parameterType="java.lang.String" resultType="com.like4u.server.infrastructure.po.TalkBox">
+<mapper namespace="com.like4u.server.infrastructrue.dao.ITalkBoxDao">
+    <select id="queryTalkBoxList" parameterType="java.lang.String" resultType="com.like4u.server.infrastructrue.po.TalkBox">
         select talkId, talkType from talk_box where userId = #{userId}
     </select>
 
-    <insert id="addTalkBox" parameterType="com.like4u.server.infrastructure.po.TalkBox">
+    <insert id="addTalkBox" parameterType="com.like4u.server.infrastructrue.po.TalkBox">
         INSERT INTO talk_box
         ( userId, talkId, talkType, createTime, updateTime )
         VALUES
@@ -18,7 +18,7 @@
         delete from talk_box where userId = #{userId} and talkId = #{talkId}
     </delete>
 
-    <select id="queryTalkBox" parameterType="java.lang.String" resultType="com.like4u.server.infrastructure.po.TalkBox">
+    <select id="queryTalkBox" parameterType="java.lang.String" resultType="com.like4u.server.infrastructrue.po.TalkBox">
         select id from talk_box where userId = #{userId} and talkId = #{talkId}
     </select>
 

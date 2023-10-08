@@ -4,6 +4,7 @@ import com.like4u.agreement.message.LoginRequestMessage;
 import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
+import com.like4u.client.application.UIService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -24,11 +25,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
 
-
+    private UIService uiService;
     LoggingHandler LOGGING_HANDLER= new LoggingHandler(LogLevel.DEBUG);
     MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
     AtomicBoolean loginSignal = new AtomicBoolean(false);
     CountDownLatch latch = new CountDownLatch(1);
+
+    public MyChannelInitializer(UIService uiService) {
+        this.uiService = uiService;
+    }
+
     @Override
     protected void initChannel(NioSocketChannel ch) throws Exception {
 
