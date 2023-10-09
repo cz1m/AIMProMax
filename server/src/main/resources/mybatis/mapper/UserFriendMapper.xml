@@ -5,16 +5,16 @@
 <mapper namespace="com.like4u.server.infrastructrue.dao.IUserFriendDao">
 
     <select id="queryUserFriendIdList" resultType="java.lang.String">
-        SELECT userFriendId FROM user_friend where userId = #{userId}
+        SELECT userFriendId FROM friend where userId = #{userId}
     </select>
 
     <select id="queryUserFriendById" resultType="com.like4u.server.infrastructrue.po.UserFriend">
-        select userFriendId from user_friend
+        select userFriendId from friend
         where userId = #{req.userId} and userFriendId = #{req.userFriendId}
     </select>
 
     <insert id="addUserFriendList" parameterType="java.util.List">
-        insert into user_friend
+        insert into friend
         ( userId, userFriendId, createTime, updateTime )  values
         <foreach collection="list" item="item" index="index" separator=",">
             (

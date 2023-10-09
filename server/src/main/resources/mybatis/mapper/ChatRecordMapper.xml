@@ -5,7 +5,7 @@
 <mapper namespace="com.like4u.server.infrastructrue.dao.IChatRecordDao">
 
     <insert id="appendChatRecord" parameterType="com.like4u.server.infrastructrue.po.ChatRecord">
-        INSERT INTO chat_record
+        INSERT INTO chat_records
         ( userId, friendId, talkType, msgContent, msgType, msgDate, createTime, updateTime )
         VALUES
         ( #{req.userId}, #{req.friendId}, #{req.talkType}, #{req.msgContent}, #{req.msgType}, #{req.msgDate}, now(), now() )
@@ -13,7 +13,7 @@
 
     <select id="queryUserChatRecordList" resultType="com.like4u.server.infrastructrue.po.ChatRecord">
         SELECT userId, friendId, msgContent, msgType, msgDate
-        FROM chat_record
+        FROM chat_records
         where talkType = 0 and (friendId = #{talkId} and userId = #{userId}) or (friendId = #{userId} and userId = #{talkId})
         order by createTime desc
         limit 10
@@ -21,7 +21,7 @@
 
     <select id="queryGroupsChatRecordList" resultType="com.like4u.server.infrastructrue.po.ChatRecord">
         SELECT userId, friendId, msgContent, msgType, msgDate
-        FROM chat_record
+        FROM chat_records
         where talkType = 1 and friendId = #{talkId}
         order by createTime desc
         limit 10

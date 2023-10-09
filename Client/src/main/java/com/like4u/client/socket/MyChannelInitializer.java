@@ -1,10 +1,13 @@
 package com.like4u.client.socket;
 
+import com.like4u.agreement.codec.ObjDecoder;
+import com.like4u.agreement.codec.ObjEncoder;
 import com.like4u.agreement.message.LoginRequestMessage;
 import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.client.application.UIService;
+import com.like4u.client.socket.handler.LoginHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -36,13 +39,25 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
     }
 
     @Override
+    protected void initChannel(NioSocketChannel channel) throws Exception {
+        channel.pipeline().addLast(new ObjDecoder());
+        // 在管道中添加我们自己的接收数据实现方法
+
+        channel.pipeline().addLast(new LoginHandler(uiService));
+
+        //对象传输处理[编码]
+        channel.pipeline().addLast(new ObjEncoder());
+    }
+
+   /* @Override
     protected void initChannel(NioSocketChannel ch) throws Exception {
 
         ch.pipeline().addLast(new ProcotolFrameDecoder());
         ch.pipeline().addLast(LOGGING_HANDLER);
 
         ch.pipeline().addLast(MESSAGE_CODEC);
-/*                          ch.pipeline().addLast(new IdleStateHandler(0,3,0));
+        ch.pipeline().addLast(new LoginHandler(uiService));
+*//*                          ch.pipeline().addLast(new IdleStateHandler(0,3,0));
                             ch.pipeline().addLast(new ChannelDuplexHandler(){
                                 @Override
                                 public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -52,14 +67,11 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
                                         ctx.writeAndFlush(new PingMessage());
                                     }
                                 }
-                            });*/
+                            });*//*
 
         ch.pipeline().addLast("clientHandler", new ChannelInboundHandlerAdapter() {
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                log.debug("{}", msg);
-
-
                 if (msg instanceof LoginResponseMessage) {
                     LoginResponseMessage response = (LoginResponseMessage) msg;
                     if (response.isSuccess()) {
@@ -71,47 +83,7 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
 
             }
 
-            @Override
-            public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-                new Thread(() -> {
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.println("请输入用户名");
-
-                    String username = scanner.nextLine();
-                   // user = username;
-                    System.out.println("请输入密码");
-                    String password = scanner.nextLine();
-                    //Todo:账户密码校验
-
-                    LoginRequestMessage loginRequestMessage = new LoginRequestMessage(username, password);
-                    ctx.writeAndFlush(loginRequestMessage);
-
-                    System.out.println("等待后序输入");
-
-                    try {
-                        latch.await();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    if (!loginSignal.get()) {
-                        ctx.channel().close();
-                        return;
-                    }
-                    do {
-                        //输入指令
-
-                        String command = scanner.nextLine();
-
-
-                    } while (false);
-
-                }, "sysIn").start();
-
-
-            }
         });
-    }
+    }*/
 
 }

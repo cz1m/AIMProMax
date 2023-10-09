@@ -24,7 +24,7 @@ import java.util.concurrent.Callable;
  *
  */
 @Slf4j
-@Service("nettyServer")
+@Service("ChatServer")
 public class ChatServer implements Callable<Channel> {
     private Logger logger= LoggerFactory.getLogger(ChatServer.class);
     private NioEventLoopGroup connectGroup = new NioEventLoopGroup(1);

@@ -1,5 +1,7 @@
 package com.like4u.server.socket;
 
+import com.like4u.agreement.codec.ObjDecoder;
+import com.like4u.agreement.codec.ObjEncoder;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.server.application.UserService;
@@ -21,8 +23,10 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ch.pipeline().addLast(new ProcotolFrameDecoder());
-        ch.pipeline().addLast(new MessageCodecSharable());
+
+        //对象传输处理[解码]
+        ch.pipeline().addLast(new ObjDecoder());
         ch.pipeline().addLast(new LoginHandler(userService));
+        ch.pipeline().addLast(new ObjEncoder());
     }
 }

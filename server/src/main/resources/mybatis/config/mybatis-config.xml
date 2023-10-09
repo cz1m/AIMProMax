@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.like4u.server.infrastructrue.po.ChatRecord"/>
+        <package name="com.like4u.server.infrastructrue.po.Groups"/>
+        <package name="com.like4u.server.infrastructrue.po.TalkBox"/>
+        <package name="com.like4u.server.infrastructrue.po.User"/>
+        <package name="com.like4u.server.infrastructrue.po.UserFriend"/>
+        <package name="com.like4u.server.infrastructrue.po.UserGroup"/>
+    </typeAliases>
+</configuration>

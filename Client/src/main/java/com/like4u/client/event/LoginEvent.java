@@ -19,6 +19,5 @@ public class LoginEvent implements ILoginEvent {
         Channel channel = BeanUtil.getBean("channel", Channel.class);
         channel.writeAndFlush(new LoginRequestMessage(userId,userPassword));
         CacheUtil.userId=userId;
-
     }
 }

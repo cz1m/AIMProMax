@@ -7,11 +7,14 @@
     <groupId>com.like4u</groupId>
     <artifactId>agreement</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Protostuff -->
+        <protostuff.version>1.0.10</protostuff.version>
+        <objenesis.version>2.4</objenesis.version>
     </properties>
     <dependencies>
         <dependency>
@@ -44,6 +47,27 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>${objenesis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>3.3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

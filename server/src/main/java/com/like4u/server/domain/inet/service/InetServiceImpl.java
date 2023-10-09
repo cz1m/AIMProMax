@@ -28,7 +28,7 @@ public class InetServiceImpl implements InetService {
     private int port;
 
     @Resource
-    private ChatServer nettyServer;
+    private ChatServer chatServer;
     @Resource
     private IInetRepository inetRepository;
 
@@ -37,7 +37,7 @@ public class InetServiceImpl implements InetService {
         InetServerInfo inetServerInfo = new InetServerInfo();
         inetServerInfo.setIp(ip);
         inetServerInfo.setPort(port);
-        inetServerInfo.setStatus(nettyServer.getChannel().isActive());
+        inetServerInfo.setStatus(chatServer.getChannel().isActive());
         return inetServerInfo;
     }
 

@@ -1,5 +1,6 @@
 package com.like4u.server.infrastructrue.dao;
 
+import com.like4u.server.domain.inet.model.ChannelUserReq;
 import com.like4u.server.infrastructrue.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,8 +20,8 @@ public interface IUserDao {
 
     List<User> queryFuzzyUserList(@Param("userId") String userId,@Param("searchKey") String searchKey);
 
-   /* Long queryChannelUserCount(ChannelUserReq req);
+    Long queryChannelUserCount(ChannelUserReq req);
 
-    List<User> queryChannelUserList(ChannelUserReq req);*/
+    List<User> queryChannelUserList(ChannelUserReq req);
 
 }

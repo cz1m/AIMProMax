@@ -18,6 +18,33 @@
         order by id desc
         limit 10
     </select>
+    <select id="queryChannelUserCount" parameterType="com.like4u.server.domain.inet.model.ChannelUserReq" resultType="java.lang.Long">
+        select count(id)
+        from user
+        <where>
+            <if test="null != userId">
+                and userId = #{userId}
+            </if>
+            <if test="null != userNickName">
+                and userNickName like "%"#{userNickName}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="queryChannelUserList" parameterType="com.like4u.server.domain.inet.model.ChannelUserReq" resultType="com.like4u.server.infrastructrue.po.User">
+        select userId, userNickName, userHead
+        from user
+        <where>
+            <if test="null != userId">
+                and userId = #{userId}
+            </if>
+            <if test="null != userNickName">
+                and userNickName like "%"#{userNickName}"%"
+            </if>
+        </where>
+        order by id desc
+        limit #{pageStart},#{pageEnd}
+    </select>
 
 
 </mapper>
