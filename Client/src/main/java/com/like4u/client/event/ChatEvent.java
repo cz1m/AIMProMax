@@ -1,11 +1,9 @@
 package com.like4u.client.event;
 
 import com.like4u.AIM.ui.view.chat.IChatEvent;
+import com.like4u.agreement.Enum.MsgTypeEnum;
 import com.like4u.agreement.Enum.TalkTypeEnum;
-import com.like4u.agreement.message.AddFriendRequestMessage;
-import com.like4u.agreement.message.DelTalkRequestMessage;
-import com.like4u.agreement.message.SearchFriendRequestMessage;
-import com.like4u.agreement.message.TalkNoticeRequest;
+import com.like4u.agreement.message.*;
 import com.like4u.client.infrastructure.util.BeanUtil;
 import io.netty.channel.Channel;
 import javafx.scene.control.ListView;
@@ -25,9 +23,12 @@ public class ChatEvent implements IChatEvent {
 
     }
 
+    //发送消息
     @Override
     public void doSendMsg(String userId, String talkId, Integer talkType, String msg, Integer msgType, Date msgDate) {
 
+        Channel channel = BeanUtil.getBean("channel", Channel.class);
+        channel.writeAndFlush(new MsgRequestMessage(userId,talkId,msg, msgDate,MsgTypeEnum.values()[msgType]));
     }
 
     /**

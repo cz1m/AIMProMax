@@ -1,5 +1,7 @@
 package com.like4u.server.infrastructrue.po;
 
+import com.like4u.agreement.Enum.MsgTypeEnum;
+
 import java.util.Date;
 
 /**

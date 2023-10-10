@@ -1,12 +1,10 @@
 package com.like4u.agreement.protocol.dto;
 
+import com.like4u.agreement.Enum.MsgTypeEnum;
+
 import java.util.Date;
 
-/**
- * 博  客：http://bugstack.cn
- * 公众号：bugstack虫洞栈 | 沉淀、分享、成长，让自己和他人都能有所收获！
- * create by 小傅哥 on @2020
- */
+
 public class ChatRecordDto {
 
     private String talkId;          // 对话框ID
@@ -15,7 +13,7 @@ public class ChatRecordDto {
     private String userHead;        // 用户头像[群组聊天]
     private Integer msgUserType;    // 消息类型[0自己/1好友]
     private String msgContent;      // 消息内容
-    private Integer msgType;        // 消息类型；0文字消息、1固定表情
+    private MsgTypeEnum msgType;        // 消息类型；0文字消息、1固定表情
     private Date msgDate;           // 消息时间
 
     public String getTalkId() {
@@ -66,11 +64,11 @@ public class ChatRecordDto {
         this.msgContent = msgContent;
     }
 
-    public Integer getMsgType() {
+    public MsgTypeEnum getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(Integer msgType) {
+    public void setMsgType(MsgTypeEnum msgType) {
         this.msgType = msgType;
     }
 

@@ -29,6 +29,8 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
         ch.pipeline().addLast(new SearchFriendHandler(userService));
         ch.pipeline().addLast(new DelTalkHandler(userService));
         ch.pipeline().addLast(new TalkNoticeHandler(userService));
+        ch.pipeline().addLast(new MsgHandler(userService));
+
         ch.pipeline().addLast(new ObjEncoder());
     }
 }

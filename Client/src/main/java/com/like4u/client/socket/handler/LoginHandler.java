@@ -2,6 +2,7 @@ package com.like4u.client.socket.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.like4u.AIM.ui.view.chat.IChatMethod;
+import com.like4u.agreement.Enum.MsgTypeEnum;
 import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.dto.ChatRecordDto;
 import com.like4u.agreement.protocol.dto.ChatTalkDto;
@@ -53,13 +54,13 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginResponseMessa
                                     for (int i = userRecordList.size() - 1; i >= 0; i--) {
                                         ChatRecordDto chatRecord = userRecordList.get(i);
                                         //  自己的消息
-                                        if (0 == chatRecord.getMsgType()) {
-                                            chat.addTalkMsgRight(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType(), chatRecord.getMsgDate(), true, false, false);
+                                        if (MsgTypeEnum.Text == chatRecord.getMsgType()) {
+                                            chat.addTalkMsgRight(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType().ordinal(), chatRecord.getMsgDate(), true, false, false);
                                             continue;
                                         }
                                         // 好友的消息
-                                        if (1 == chatRecord.getMsgType()) {
-                                            chat.addTalkMsgUserLeft(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType(), chatRecord.getMsgDate(), true, false, false);
+                                        if (MsgTypeEnum.Face == chatRecord.getMsgType()) {
+                                            chat.addTalkMsgUserLeft(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType().ordinal(), chatRecord.getMsgDate(), true, false, false);
                                         }
                                     }
                                     break;
@@ -71,12 +72,12 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginResponseMessa
                                         ChatRecordDto chatRecord = groupRecordList.get(i);
                                         //  自己的消息
                                         if (0 == chatRecord.getMsgUserType()) {
-                                            chat.addTalkMsgRight(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType(), chatRecord.getMsgDate(), true, false, false);
+                                            chat.addTalkMsgRight(chatRecord.getTalkId(), chatRecord.getMsgContent(), chatRecord.getMsgType().ordinal(), chatRecord.getMsgDate(), true, false, false);
                                             continue;
                                         }
                                         // 他人的消息
                                         if (1 == chatRecord.getMsgUserType()) {
-                                            chat.addTalkMsgGroupLeft(chatRecord.getTalkId(), chatRecord.getUserId(), chatRecord.getUserNickName(), chatRecord.getUserHead(), chatRecord.getMsgContent(), chatRecord.getMsgType(), chatRecord.getMsgDate(), true, false, false);
+                                            chat.addTalkMsgGroupLeft(chatRecord.getTalkId(), chatRecord.getUserId(), chatRecord.getUserNickName(), chatRecord.getUserHead(), chatRecord.getMsgContent(), chatRecord.getMsgType().ordinal(), chatRecord.getMsgDate(), true, false, false);
                                         }
                                     }
                                     break;

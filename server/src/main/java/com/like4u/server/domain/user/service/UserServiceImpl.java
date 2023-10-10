@@ -70,12 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void asyncAppendChatRecord(final ChatRecordInfo chatRecordInfo) {
-        taskExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                userRepository.appendChatRecord(chatRecordInfo);
-            }
-        });
+        taskExecutor.execute(() -> userRepository.appendChatRecord(chatRecordInfo));
     }
 
     @Override

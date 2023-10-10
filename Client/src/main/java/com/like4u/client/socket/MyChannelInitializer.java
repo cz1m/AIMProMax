@@ -7,10 +7,7 @@ import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.client.application.UIService;
-import com.like4u.client.socket.handler.AddFriendHandler;
-import com.like4u.client.socket.handler.LoginHandler;
-import com.like4u.client.socket.handler.SearchFriendHandler;
-import com.like4u.client.socket.handler.TalkNoticeHandler;
+import com.like4u.client.socket.handler.*;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -51,6 +48,7 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
         channel.pipeline().addLast(new AddFriendHandler(uiService));
         channel.pipeline().addLast(new TalkNoticeHandler(uiService));
         channel.pipeline().addLast(new LoginHandler(uiService));
+        channel.pipeline().addLast(new MsgHandler(uiService));
 
         //对象传输处理[编码]
         channel.pipeline().addLast(new ObjEncoder());

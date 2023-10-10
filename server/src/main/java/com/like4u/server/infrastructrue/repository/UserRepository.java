@@ -1,5 +1,6 @@
 package com.like4u.server.infrastructrue.repository;
 
+import com.like4u.agreement.Enum.MsgTypeEnum;
 import com.like4u.server.domain.user.model.*;
 import com.like4u.server.infrastructrue.dao.*;
 import com.like4u.server.infrastructrue.po.*;
@@ -168,7 +169,7 @@ public class UserRepository implements IUserRepository {
         chatRecord.setUserId(chatRecordInfo.getUserId());
         chatRecord.setFriendId(chatRecordInfo.getFriendId());
         chatRecord.setMsgContent(chatRecordInfo.getMsgContent());
-        chatRecord.setMsgType(chatRecordInfo.getMsgType());
+        chatRecord.setMsgType(chatRecordInfo.getMsgType().ordinal());
         chatRecord.setMsgDate(chatRecordInfo.getMsgDate());
         chatRecord.setTalkType(chatRecordInfo.getTalkType());
         chatRecordDao.appendChatRecord(chatRecord);
@@ -188,7 +189,7 @@ public class UserRepository implements IUserRepository {
             chatRecordInfo.setUserId(chatRecord.getUserId());
             chatRecordInfo.setFriendId(chatRecord.getFriendId());
             chatRecordInfo.setMsgContent(chatRecord.getMsgContent());
-            chatRecordInfo.setMsgType(chatRecord.getMsgType());
+            chatRecordInfo.setMsgType(MsgTypeEnum.values()[chatRecord.getMsgType()]);
             chatRecordInfo.setMsgDate(chatRecord.getMsgDate());
             chatRecordInfoList.add(chatRecordInfo);
         }
