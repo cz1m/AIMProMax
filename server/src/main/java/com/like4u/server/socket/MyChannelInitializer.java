@@ -5,7 +5,9 @@ import com.like4u.agreement.codec.ObjEncoder;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.server.application.UserService;
+import com.like4u.server.socket.handler.AddFriendHandler;
 import com.like4u.server.socket.handler.LoginHandler;
+import com.like4u.server.socket.handler.SearchFriendHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 
@@ -27,6 +29,8 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
         //对象传输处理[解码]
         ch.pipeline().addLast(new ObjDecoder());
         ch.pipeline().addLast(new LoginHandler(userService));
+        ch.pipeline().addLast(new AddFriendHandler(userService));
+        ch.pipeline().addLast(new SearchFriendHandler(userService));
         ch.pipeline().addLast(new ObjEncoder());
     }
 }

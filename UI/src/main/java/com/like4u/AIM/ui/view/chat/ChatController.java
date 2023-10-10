@@ -9,6 +9,7 @@ import com.like4u.AIM.ui.view.chat.data.TalkData;
 import com.like4u.AIM.ui.view.chat.element.group_bar_chat.ElementInfoBox;
 import com.like4u.AIM.ui.view.chat.element.group_bar_chat.ElementTalk;
 import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendGroup;
+import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendLuckUser;
 import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendUser;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -237,6 +238,19 @@ public class ChatController extends ChatInit implements IChatMethod {
         talkElement.fillMsgSketch(0 == msgType ? msg : "[表情]", msgData);
         // 设置位置&选中
         chatView.updateTalkListIdxAndSelected(0, talkElement.pane(), talkElement.msgRemind(), idxFirst, selected, isRemind);
+    }
+    @Override
+    public void addLuckFriend(String userId, String userNickName, String userHead, Integer status) {
+        ElementFriendLuckUser friendLuckUser = new ElementFriendLuckUser(userId, userNickName, userHead, status);
+        Pane pane = friendLuckUser.pane();
+        // 添加到好友列表
+        ListView<Pane> friendLuckListView = $("friendLuckListView", ListView.class);
+        ObservableList<Pane> items = friendLuckListView.getItems();
+        items.add(pane);
+        // 点击事件
+        friendLuckUser.statusLabel().setOnMousePressed(event -> {
+            chatEvent.doEventAddLuckUser(super.userId, userId);
+        });
     }
 
     @Override

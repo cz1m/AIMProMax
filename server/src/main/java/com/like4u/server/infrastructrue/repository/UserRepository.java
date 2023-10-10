@@ -130,6 +130,13 @@ public class UserRepository implements IUserRepository {
         return groupsInfoList;
     }
 
+    /**
+     * userId用户通过key模糊查询用户
+     * 将查询出的用户列表通过用户好友关系表查询好友关系后返回LuckUserInfo
+     * @param userId    用户ID
+     * @param searchKey 用户名、用户ID
+     * @return 模糊查询后的用户展示表
+     */
     @Override
     public List<LuckUserInfo> queryFuzzyUserInfoList(String userId, String searchKey) {
         List<LuckUserInfo> luckUserInfoList = new ArrayList<>();

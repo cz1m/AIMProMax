@@ -191,7 +191,7 @@ public class ChatView {
             chatInit.clearViewListSelectedAll(chatInit.$("userListView", ListView.class), chatInit.$("groupListView", ListView.class));
             ListView<Pane> listView = element.friendLuckListView();
             listView.getItems().clear();
-            System.out.println("添加好友");
+            chatEvent.addFriendLuck(chatInit.userId,listView);
         });
 
         // 搜索框事件
@@ -204,14 +204,10 @@ public class ChatView {
                 if (null == text) text = "";
                 if (text.length() > 30) text = text.substring(0, 30);
                 text = text.trim();
-                System.out.println("搜搜好友：" + text);
+                chatEvent.doFriendLuckSearch(chatInit.userId, text);
                 // 搜索清空元素
                 element.friendLuckListView().getItems().clear();
 
-                // 添加朋友
-                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000005", "比丘卡", "05_50", 0).pane());
-                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000006", "兰兰", "06_50", 1).pane());
-                element.friendLuckListView().getItems().add(new ElementFriendLuckUser("1000007", "Alexa", "07_50", 2).pane());
 
             }
         });

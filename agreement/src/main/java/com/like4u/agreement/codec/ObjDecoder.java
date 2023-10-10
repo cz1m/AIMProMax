@@ -11,9 +11,6 @@ import java.util.List;
 
 /**
  * 解码器
- * 虫洞栈：https://bugstack.cn
- * 公众号：bugstack虫洞栈  ｛关注获取学习源码｝
- * Create by 小傅哥 on 2019
  */
 public class ObjDecoder extends ByteToMessageDecoder {
 

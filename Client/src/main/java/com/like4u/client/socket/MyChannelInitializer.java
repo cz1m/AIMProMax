@@ -7,7 +7,9 @@ import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.MessageCodecSharable;
 import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.client.application.UIService;
+import com.like4u.client.socket.handler.AddFriendHandler;
 import com.like4u.client.socket.handler.LoginHandler;
+import com.like4u.client.socket.handler.SearchFriendHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -43,6 +45,9 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
         channel.pipeline().addLast(new ObjDecoder());
         // 在管道中添加我们自己的接收数据实现方法
 
+        channel.pipeline().addLast(new LoginHandler(uiService));
+        channel.pipeline().addLast(new SearchFriendHandler(uiService));
+        channel.pipeline().addLast(new AddFriendHandler(uiService));
         channel.pipeline().addLast(new LoginHandler(uiService));
 
         //对象传输处理[编码]
