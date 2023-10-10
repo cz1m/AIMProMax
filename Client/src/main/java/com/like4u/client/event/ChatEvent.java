@@ -1,8 +1,11 @@
 package com.like4u.client.event;
 
 import com.like4u.AIM.ui.view.chat.IChatEvent;
+import com.like4u.agreement.Enum.TalkTypeEnum;
 import com.like4u.agreement.message.AddFriendRequestMessage;
+import com.like4u.agreement.message.DelTalkRequestMessage;
 import com.like4u.agreement.message.SearchFriendRequestMessage;
+import com.like4u.agreement.message.TalkNoticeRequest;
 import com.like4u.client.infrastructure.util.BeanUtil;
 import io.netty.channel.Channel;
 import javafx.scene.control.ListView;
@@ -27,19 +30,28 @@ public class ChatEvent implements IChatEvent {
 
     }
 
+    /**
+     * 添加用户对话框
+     * @param userId       用户ID
+     * @param userFriendId 好友ID
+     */
     @Override
     public void doEventAddTalkUser(String userId, String userFriendId) {
 
+        Channel channel = BeanUtil.getBean("channel", Channel.class);
+        channel.writeAndFlush(new TalkNoticeRequest(userId,userFriendId, TalkTypeEnum.Friend.ordinal()));
     }
 
     @Override
     public void doEventAddTalkGroup(String userId, String groupId) {
-
+        Channel channel = BeanUtil.getBean("channel", Channel.class);
+        channel.writeAndFlush(new TalkNoticeRequest(userId,groupId, TalkTypeEnum.Group.ordinal()));
     }
 
     @Override
     public void doEventDelTalkUser(String userId, String talkId) {
-
+        Channel channel = BeanUtil.getBean("channel", Channel.class);
+        channel.writeAndFlush(new DelTalkRequestMessage(userId,talkId));
     }
 
     /**

@@ -11,9 +11,9 @@ import javafx.scene.layout.Pane;
 import java.util.Date;
 
 /**
- * 博  客：http://bugstack.cn
- * 公众号：bugstack虫洞栈 | 沉淀、分享、成长，让自己和他人都能有所收获！
- * create by 小傅哥 on @2020
+ * @author zhangmin
+ * @version 1.0
+ * UI页面事件定义
  */
 public class ChatEventDefine {
 
@@ -168,7 +168,7 @@ public class ChatEventDefine {
             chatMethod.clearRemain(userFriendId);
 
             // 3. 事件处理；填充到对话框
-            System.out.println("事件处理；填充到对话框");
+            chatEvent.doEventAddTalkUser(chatInit.userId,userFriendId);
         });
     }
     // 群组；开启与群组发送消息
@@ -182,7 +182,7 @@ public class ChatEventDefine {
             //新添加进去的消息设置为已读
             chatMethod.clearRemain(groupId);
             // 3. 事件处理；填充到对话框
-            System.out.println("事件处理；填充到对话框");
+            chatEvent.doEventAddTalkGroup(chatInit.userId, groupId);
         });
     }
     private void doEventToolFace() {

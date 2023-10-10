@@ -27,6 +27,10 @@ public abstract class Message implements Serializable {
     public static final int SearchFriendRequestMessage=5;
     public static final int SearchFriendResponseMessage=6;
     public static final int ReconnectRequest= 7;
+    public static final int DelTalkRequest=8;
+    public static final int TalkNoticeRequest=9;
+    public static final int TalkNoticeResponse=10;
+
     private static final Map<Integer, Class<?>> messageClasses = new HashMap<>();
 
     static {
@@ -37,5 +41,8 @@ public abstract class Message implements Serializable {
         messageClasses.put(AddFriendResponse, AddFriendResponseMessage.class);
         messageClasses.put(SearchFriendRequestMessage,com.like4u.agreement.message.SearchFriendRequestMessage.class);
         messageClasses.put(SearchFriendResponseMessage,com.like4u.agreement.message.SearchFriendResponseMessage.class);
+        messageClasses.put(DelTalkRequest, DelTalkRequestMessage.class);
+        messageClasses.put(TalkNoticeRequest,com.like4u.agreement.message.TalkNoticeRequest.class);
+        messageClasses.put(TalkNoticeResponse,com.like4u.agreement.message.TalkNoticeResponse.class);
     }
 }

@@ -2,12 +2,8 @@ package com.like4u.server.socket;
 
 import com.like4u.agreement.codec.ObjDecoder;
 import com.like4u.agreement.codec.ObjEncoder;
-import com.like4u.agreement.protocol.MessageCodecSharable;
-import com.like4u.agreement.protocol.ProcotolFrameDecoder;
 import com.like4u.server.application.UserService;
-import com.like4u.server.socket.handler.AddFriendHandler;
-import com.like4u.server.socket.handler.LoginHandler;
-import com.like4u.server.socket.handler.SearchFriendHandler;
+import com.like4u.server.socket.handler.*;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 
@@ -31,6 +27,8 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
         ch.pipeline().addLast(new LoginHandler(userService));
         ch.pipeline().addLast(new AddFriendHandler(userService));
         ch.pipeline().addLast(new SearchFriendHandler(userService));
+        ch.pipeline().addLast(new DelTalkHandler(userService));
+        ch.pipeline().addLast(new TalkNoticeHandler(userService));
         ch.pipeline().addLast(new ObjEncoder());
     }
 }

@@ -121,7 +121,7 @@ public class ChatController extends ChatInit implements IChatMethod {
             $("info_name", Label.class).setText("");
             talkElement.infoBoxList().getItems().clear();
             talkElement.clearMsgSketch();
-            System.out.println("删除对话框，通知服务端");
+            chatEvent.doEventDelTalkUser(super.userId,talkId);
         });
     }
     public void clearRemain(String talkId){
