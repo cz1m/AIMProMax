@@ -1,6 +1,8 @@
 package com.like4u.server.socket.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.like4u.agreement.Enum.MsgUserType;
+import com.like4u.agreement.Enum.TalkTypeEnum;
 import com.like4u.agreement.message.LoginRequestMessage;
 import com.like4u.agreement.message.LoginResponseMessage;
 import com.like4u.agreement.protocol.dto.ChatRecordDto;
@@ -17,6 +19,9 @@ import io.netty.channel.Channel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.like4u.agreement.Enum.MsgUserType.*;
+import static com.like4u.agreement.Enum.TalkTypeEnum.*;
 
 /**
  * @author Zhang Min
@@ -50,7 +55,7 @@ public class LoginHandler extends MyBizHandler<LoginRequestMessage> {
 
         UserInfo userInfo = userService.queryUserInfo(msg.getUsername());
         List<TalkBoxInfo> talkBoxInfoList = userService.queryTalkBoxInfoList(msg.getUsername());
-
+        //从数据库查询对话框列表，封装成Dto列表
 
         for (TalkBoxInfo talkBoxInfo : talkBoxInfoList) {
             ChatTalkDto chatTalk = new ChatTalkDto();
@@ -63,8 +68,9 @@ public class LoginHandler extends MyBizHandler<LoginRequestMessage> {
             loginResponseMessage.getChatTalkList().add(chatTalk);
 
             // 好友；聊天消息
-            if (Constants.TalkType.Friend.getCode().equals(talkBoxInfo.getTalkType())) {
+            if (Friend.equals(talkBoxInfo.getTalkType())) {
                 List<ChatRecordDto> chatRecordDtoList = new ArrayList<>();
+                //从数据库查询历史记录封装成dto列表
                 List<ChatRecordInfo> chatRecordInfoList = userService.queryChatRecordInfoList(talkBoxInfo.getTalkId(), msg.getUsername(), Constants.TalkType.Friend.getCode());
                 for (ChatRecordInfo chatRecordInfo : chatRecordInfoList) {
                     ChatRecordDto chatRecordDto = new ChatRecordDto();
@@ -73,12 +79,12 @@ public class LoginHandler extends MyBizHandler<LoginRequestMessage> {
                     // 自己发的消息
                     if (msgType) {
                         chatRecordDto.setUserId(chatRecordInfo.getUserId());
-                        chatRecordDto.setMsgUserType(0); // 消息类型[0自己/1好友]
+                        chatRecordDto.setMsgUserType(My); // 消息类型[0自己/1好友]
                     }
                     // 好友发的消息
                     else {
                         chatRecordDto.setUserId(chatRecordInfo.getFriendId());
-                        chatRecordDto.setMsgUserType(1); // 消息类型[0自己/1好友]
+                        chatRecordDto.setMsgUserType(Other); // 消息类型[0自己/1好友]
                     }
                     chatRecordDto.setMsgContent(chatRecordInfo.getMsgContent());
                     chatRecordDto.setMsgType(chatRecordInfo.getMsgType());
@@ -88,7 +94,7 @@ public class LoginHandler extends MyBizHandler<LoginRequestMessage> {
                 chatTalk.setChatRecordList(chatRecordDtoList);
             }
             // 群组；聊天消息
-            else if (Constants.TalkType.Group.getCode().equals(talkBoxInfo.getTalkType())) {
+            else if (Group.equals(talkBoxInfo.getTalkType())) {
                 List<ChatRecordDto> chatRecordDtoList = new ArrayList<>();
                 List<ChatRecordInfo> chatRecordInfoList = userService.queryChatRecordInfoList(talkBoxInfo.getTalkId(), msg.getUsername(), Constants.TalkType.Group.getCode());
                 for (ChatRecordInfo chatRecordInfo : chatRecordInfoList) {
@@ -100,8 +106,9 @@ public class LoginHandler extends MyBizHandler<LoginRequestMessage> {
                     chatRecordDto.setUserHead(memberInfo.getUserHead());
                     chatRecordDto.setMsgContent(chatRecordInfo.getMsgContent());
                     chatRecordDto.setMsgDate(chatRecordInfo.getMsgDate());
+                    //发送消息的人和查询出的消息记录里的每个用户做比较，一致则是自己发的消息
                     boolean msgType = msg.getUsername().equals(chatRecordInfo.getUserId());
-                    chatRecordDto.setMsgUserType(msgType ? 0 : 1); // 消息类型[0自己/1好友]
+                    chatRecordDto.setMsgUserType(msgType ? My : Other); // 消息类型[0自己/1好友]
                     chatRecordDto.setMsgType(chatRecordInfo.getMsgType());
                     chatRecordDtoList.add(chatRecordDto);
                 }

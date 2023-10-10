@@ -1,6 +1,7 @@
 package com.like4u.server.infrastructrue.repository;
 
 import com.like4u.agreement.Enum.MsgTypeEnum;
+import com.like4u.agreement.Enum.TalkTypeEnum;
 import com.like4u.server.domain.user.model.*;
 import com.like4u.server.infrastructrue.dao.*;
 import com.like4u.server.infrastructrue.po.*;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.like4u.server.infrastructrue.comon.Constants.TalkType.Friend;
-import static com.like4u.server.infrastructrue.comon.Constants.TalkType.Group;
+import static com.like4u.agreement.Enum.TalkTypeEnum.*;
+
 
 /**
  * @author Zhang Min
@@ -65,17 +66,20 @@ public class UserRepository implements IUserRepository {
         List<TalkBox> talkBoxes = talkBoxDao.queryTalkBoxList(userId);//查询用户的全部对话框
         for (TalkBox talkBox:talkBoxes){
             TalkBoxInfo talkBoxInfo = new TalkBoxInfo();
-            if (Friend.getCode().equals(talkBox.getTalkType())){
+
+            //将Po中的数字转换为枚举类
+            TalkTypeEnum talkType = values()[talkBox.getTalkType()];
+            if (Friend.equals(talkType)){
                 User user = userDao.queryUserById(talkBox.getTalkId());//如果是用户对话框，查出对应用户信息
 
-                talkBoxInfo.setTalkType(Friend.getCode());
+                talkBoxInfo.setTalkType(Friend);
                 talkBoxInfo.setTalkId(user.getUserId());
                 talkBoxInfo.setTalkName(user.getUserNickName());
                 talkBoxInfo.setTalkHead(user.getUserHead());
-            }else if (Group.getCode().equals(talkBox.getTalkType())){
+            }else if (Group.equals(talkType)){
                 Groups groups = groupsDao.queryGroupsById(talkBox.getTalkId());
 
-                talkBoxInfo.setTalkType(Group.getCode());
+                talkBoxInfo.setTalkType(Group);
                 talkBoxInfo.setTalkHead(groups.getGroupHead());
                 talkBoxInfo.setTalkName(groups.getGroupName());
                 talkBoxInfo.setTalkId(groups.getGroupId());
@@ -179,9 +183,11 @@ public class UserRepository implements IUserRepository {
     public List<ChatRecordInfo> queryChatRecordInfoList(String talkId, String userId, Integer talkType) {
         List<ChatRecordInfo> chatRecordInfoList = new ArrayList<>();
         List<ChatRecord> list = new ArrayList<>();
-        if (Friend.getCode().equals(talkType)){
+        TalkTypeEnum talkTypeEnum=TalkTypeEnum.values()[talkType];
+
+        if (Friend.equals(talkTypeEnum)){
             list = chatRecordDao.queryUserChatRecordList(talkId, userId);
-        } else if (Group.getCode().equals(talkType)){
+        } else if (Group.equals(talkTypeEnum)){
             list =  chatRecordDao.queryGroupsChatRecordList(talkId, userId);
         }
         for (ChatRecord chatRecord : list) {

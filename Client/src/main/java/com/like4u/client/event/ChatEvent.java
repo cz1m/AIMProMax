@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 
 import java.util.Date;
 
+import static com.like4u.agreement.Enum.TalkTypeEnum.*;
+
 /**
  * @author Zhang Min
  * @version 1.0
@@ -28,7 +30,18 @@ public class ChatEvent implements IChatEvent {
     public void doSendMsg(String userId, String talkId, Integer talkType, String msg, Integer msgType, Date msgDate) {
 
         Channel channel = BeanUtil.getBean("channel", Channel.class);
-        channel.writeAndFlush(new MsgRequestMessage(userId,talkId,msg, msgDate,MsgTypeEnum.values()[msgType]));
+
+        TalkTypeEnum talkTypeEnum = values()[talkType];
+        switch (talkTypeEnum) {
+            case Friend ->
+                    channel.writeAndFlush(new MsgRequestMessage(userId, talkId, msg, msgDate, MsgTypeEnum.values()[msgType]));
+            case Group ->
+                    channel.writeAndFlush(new MsgGroupRequestMessage(userId, talkId, msg, msgDate, MsgTypeEnum.values()[msgType]));
+            default -> {
+                System.out.println("发生什么事了？消息无法发送");
+            }
+        }
+
     }
 
     /**
@@ -40,13 +53,13 @@ public class ChatEvent implements IChatEvent {
     public void doEventAddTalkUser(String userId, String userFriendId) {
 
         Channel channel = BeanUtil.getBean("channel", Channel.class);
-        channel.writeAndFlush(new TalkNoticeRequest(userId,userFriendId, TalkTypeEnum.Friend.ordinal()));
+        channel.writeAndFlush(new TalkNoticeRequest(userId,userFriendId, Friend.ordinal()));
     }
 
     @Override
     public void doEventAddTalkGroup(String userId, String groupId) {
         Channel channel = BeanUtil.getBean("channel", Channel.class);
-        channel.writeAndFlush(new TalkNoticeRequest(userId,groupId, TalkTypeEnum.Group.ordinal()));
+        channel.writeAndFlush(new TalkNoticeRequest(userId,groupId, Group.ordinal()));
     }
 
     @Override

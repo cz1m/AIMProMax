@@ -111,7 +111,7 @@ public class ChatController extends ChatInit implements IChatMethod {
             talkElement.delete().setVisible(false);
         });
         // 填充对话框消息栏
-       // if(selected)
+        if(selected)
             fillInfoBox(talkElement, talkName);
         // 从对话框中删除
         talkElement.delete().setOnMouseClicked(event -> {
@@ -182,7 +182,7 @@ public class ChatController extends ChatInit implements IChatMethod {
         // 设置位置&选中
         chatView.updateTalkListIdxAndSelected(0, talkElement.pane(), talkElement.msgRemind(), idxFirst, selected, isRemind);
         // 填充对话框聊天窗口
-        fillInfoBox(talkElement, talkUserData.getTalkName());
+        //fillInfoBox(talkElement, talkUserData.getTalkName());
     }
 
     /**
@@ -208,8 +208,8 @@ public class ChatController extends ChatInit implements IChatMethod {
             if (null == groupsData) return;
             addTalkBox(0, 1, talkId, groupsData.getGroupName(), groupsData.getGroupHead(), userNickName + "：" + msg, msgDate, false);
             talkElement = CacheUtil.talkMap.get(talkId);
-            // 事件通知(开启与群组发送消息)
-            System.out.println("事件通知(开启与群组发送消息)");
+            // 事件通知 如果没有这个对话框需要创建出来并通知服务端
+            chatEvent.doEventAddTalkGroup(super.userId,talkId);
         }
         ListView<Pane> listView = talkElement.infoBoxList();
         TalkData talkData = (TalkData) listView.getUserData();
@@ -222,7 +222,7 @@ public class ChatController extends ChatInit implements IChatMethod {
         // 设置位置&选中
         chatView.updateTalkListIdxAndSelected(1, talkElement.pane(), talkElement.msgRemind(), idxFirst, selected, isRemind);
         // 填充对话框聊天窗口
-       // fillInfoBox(talkElement, talkData.getTalkName());
+      //  fillInfoBox(talkElement, talkData.getTalkName());//是否会在和别人聊天的时候收到群组消息自动切换到群聊窗口？
     }
 
 

@@ -1,5 +1,7 @@
 package com.like4u.server.domain.user.model;
 
+import com.like4u.agreement.Enum.TalkTypeEnum;
+
 import java.util.Date;
 
 /**
@@ -9,18 +11,18 @@ import java.util.Date;
  */
 public class TalkBoxInfo {
 
-    private Integer talkType; // 对话框类型；0好友、1群组
+    private TalkTypeEnum talkType; // 对话框类型；0好友、1群组
     private String talkId;    // 对话框ID(好友ID、群组ID)
     private String talkName;  // 对话框名称
     private String talkHead;  // 对话框头像
     private String talkSketch;  // 消息简述
     private Date talkDate;      // 消息时间
 
-    public Integer getTalkType() {
+    public TalkTypeEnum getTalkType() {
         return talkType;
     }
 
-    public void setTalkType(Integer talkType) {
+    public void setTalkType(TalkTypeEnum talkType) {
         this.talkType = talkType;
     }
 

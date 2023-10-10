@@ -49,6 +49,7 @@ public class MyChannelInitializer extends ChannelInitializer<NioSocketChannel> {
         channel.pipeline().addLast(new TalkNoticeHandler(uiService));
         channel.pipeline().addLast(new LoginHandler(uiService));
         channel.pipeline().addLast(new MsgHandler(uiService));
+        channel.pipeline().addLast(new MsgGroupHandler(uiService));
 
         //对象传输处理[编码]
         channel.pipeline().addLast(new ObjEncoder());
