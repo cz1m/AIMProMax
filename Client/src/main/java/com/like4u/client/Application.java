@@ -8,6 +8,7 @@ import com.like4u.agreement.message.ReconnectRequest;
 import com.like4u.client.application.UIService;
 import com.like4u.client.event.ChatEvent;
 import com.like4u.client.event.LoginEvent;
+import com.like4u.client.infrastructure.util.BeanUtil;
 import com.like4u.client.infrastructure.util.CacheUtil;
 import com.like4u.client.socket.NettyClient;
 import io.netty.channel.Channel;
@@ -34,6 +35,7 @@ public class Application extends javafx.application.Application {
         // 1. 启动窗口
         IChatMethod chat = new ChatController(new ChatEvent());
         ILoginMethod login = new LoginController(new LoginEvent(), chat);
+        BeanUtil.addBean("LoginController", login);
         login.doShow();
 
         UIService uiService = new UIService();

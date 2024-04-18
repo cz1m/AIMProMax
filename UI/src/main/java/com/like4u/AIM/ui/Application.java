@@ -74,39 +74,40 @@ public class Application extends javafx.application.Application {
         chat.doShow();
         chat.setUserInfo("1000001", "拎包冲", "02_50");
         // 模拟测试
-        chat.addTalkBox(-1, 0, "1000004", "哈尼克兔", "04_50", null, null, false);
+        chat.addTalkBox(-1, 0, "1000004", "张三", "04_50", null, null, false);
         chat.addTalkMsgUserLeft("1000004", "沉淀、分享、成长，让自己和他人都有所收获！", 0, new Date(), true, false, true);
         chat.addTalkMsgUserLeft("1000004", "f_23", 1, new Date(), true, false, true);
 
         chat.addTalkMsgRight("1000004", "今年过年是放假时间最长的了！", 0, new Date(), true, true, false);
 
-        chat.addTalkBox(-1, 0, "1000002", "铁锤", "03_50", "秋风扫过树叶落，哪有棋盘哪有我", new Date(), false);
+        chat.addTalkBox(-1, 0, "1000002", "李四", "03_50", "秋风扫过树叶落，哪有棋盘哪有我", new Date(), false);
         chat.addTalkMsgUserLeft("1000002", "秋风扫过树叶落，哪有棋盘哪有我", 0, new Date(), true, false, true);
         chat.addTalkMsgRight("1000002", "我Q，传说中的老头杀？", 0, new Date(), true, true, false);
 
         // 群组
-        chat.addFriendGroup("5307397", "虫洞技术栈(1区)", "group_1");
+        chat.addFriendGroup("5307397", "学术交流群", "group_1");
         chat.addFriendGroup("5307392", "CSDN 社区专家", "group_2");
         chat.addFriendGroup("5307399", "洗脚城VIP", "group_3");
 
         // 群组 - 对话框
-        chat.addTalkBox(0, 1, "5307397", "虫洞技术栈(1区)", "group_1", "", new Date(), true);
+        chat.addTalkBox(0, 1, "5307397", "学术交流群", "group_1", "", new Date(), true);
         chat.addTalkMsgRight("5307397", "你炸了我的山", 0, new Date(), true, true, false);
         chat.addTalkMsgRight("5307397", "f_14", 1, new Date(), true, true, false);
-        chat.addTalkMsgGroupLeft("5307397", "1000002", "拎包冲", "01_50", "推我过忘川", 0, new Date(), true, false, true);
-        chat.addTalkMsgGroupLeft("5307397", "1000003", "铁锤", "03_50", "奈河桥边的姑娘", 0, new Date(), true, false, true);
-        chat.addTalkMsgGroupLeft("5307397", "1000004", "哈尼克兔", "04_50", "等我回头看", 0, new Date(), true, false, true);
-        chat.addTalkMsgGroupLeft("5307397", "1000004", "哈尼克兔", "04_50", "f_25", 1, new Date(), true, false, true);
+        chat.addTalkMsgGroupLeft("5307397", "1000002", "李四", "01_50", "推我过忘川", 0, new Date(), true, false, true);
+        chat.addTalkMsgGroupLeft("5307397", "1000003", "王五", "03_50", "奈河桥边的姑娘", 0, new Date(), true, false, true);
+        chat.addTalkMsgGroupLeft("5307397", "1000004", "张三", "04_50", "等我回头看", 0, new Date(), true, false, true);
+        chat.addTalkMsgGroupLeft("5307397", "1000004", "张三", "04_50", "f_25", 1, new Date(), true, false, true);
 
         // 好友
-        chat.addFriendUser(false, "1000004", "哈尼克兔", "04_50");
-        chat.addFriendUser(false, "1000001", "拎包冲", "02_50");
-        chat.addFriendUser(false, "1000002", "铁锤", "03_50");
-        chat.addFriendUser(true, "1000003", "小傅哥 | bugstack.cn", "01_50");
+        chat.addFriendUser(false, "1000004", "张三", "04_50");
+        chat.addFriendUser(false, "1000001", "李四", "02_50");
+        chat.addFriendUser(false, "1000002", "王五", "03_50");
+        chat.addFriendUser(true, "1000003", "赵六", "01_50");
 
 
         ILoginMethod login = new LoginController((userId, userPassword) -> {
             System.out.println("登陆 userId：" + userId + "userPassword：" + userPassword);
+
         }, chat);
 //        login.doShow();
 

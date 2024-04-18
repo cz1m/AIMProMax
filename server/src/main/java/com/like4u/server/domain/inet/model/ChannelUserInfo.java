@@ -1,6 +1,8 @@
 package com.like4u.server.domain.inet.model;
 
-
+/**
+ * 通讯用户
+ */
 public class ChannelUserInfo {
 
     private String userId;       //用户ID

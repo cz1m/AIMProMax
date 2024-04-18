@@ -1,5 +1,4 @@
 package com.like4u.server.infrastructrue.dao;
-
 import com.like4u.server.domain.inet.model.ChannelUserReq;
 import com.like4u.server.infrastructrue.po.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,6 +21,7 @@ public interface IUserDao {
 
     Long queryChannelUserCount(ChannelUserReq req);
 
+    //todo: 暂时没有PageStart参数 等待后序调试
     List<User> queryChannelUserList(ChannelUserReq req);
 
 }

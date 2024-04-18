@@ -4,7 +4,7 @@ package com.like4u.server.domain.user.model;
 
 import com.like4u.agreement.Enum.MsgTypeEnum;
 import com.like4u.agreement.Enum.TalkTypeEnum;
-import com.like4u.server.infrastructrue.comon.Constants;
+
 
 import java.util.Date;
 

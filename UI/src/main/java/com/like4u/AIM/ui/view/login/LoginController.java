@@ -29,7 +29,9 @@ public class LoginController extends LoginInit implements ILoginMethod{
     }
     @Override
     public void doLoginError() {
-        System.out.println("登陆失败，执行提示操作");
+        System.out.println("登录失败");
+        super.loginFailMessage.setVisible(true);
+
     }
     @Override
     public void doLoginSuccess() {
@@ -38,5 +40,6 @@ public class LoginController extends LoginInit implements ILoginMethod{
         // 打开聊天窗口
         chat.doShow();
     }
+
 
 }

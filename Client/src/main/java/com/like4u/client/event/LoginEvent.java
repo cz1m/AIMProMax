@@ -17,7 +17,10 @@ public class LoginEvent implements ILoginEvent {
     public void doLoginCheck(String userId, String userPassword) {
 
         Channel channel = BeanUtil.getBean("channel", Channel.class);
+        System.out.println("网络层发送消息channel"+channel);
         channel.writeAndFlush(new LoginRequestMessage(userId,userPassword));
         CacheUtil.userId=userId;
+        // TODO: 2024/4/17 根据返回的登录结果进行处理
+
     }
 }

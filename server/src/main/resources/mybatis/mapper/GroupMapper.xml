@@ -7,4 +7,18 @@
     <select id="queryGroupsById" resultType="com.like4u.server.infrastructrue.po.Groups">
         SELECT groupId, groupName, groupHead FROM `group` where groupId = #{groupId}
     </select>
+
+    <select id="queryGroupsByUserId" resultMap="queryGroupsByUser">
+        SELECT u.userId, u.userNickName,g.groupId,g.groupName,g.groupHead
+        FROM user as u
+        LEFT JOIN user_group as ug ON u.userId=ug.userId
+        LEFT JOIN `group` as g ON ug.groupId=g.groupId
+        WHERE u.userId=#{userId}
+    </select>
+
+    <resultMap id="queryGroupsByUser" type="com.like4u.server.infrastructrue.dto.UserGroupDto">
+       <collection property="groups" ofType="com.like4u.server.infrastructrue.po.Groups">
+           <result column="groupId" property="groupId"/>
+       </collection>
+    </resultMap>
 </mapper>

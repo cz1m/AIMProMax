@@ -3,6 +3,7 @@ package com.like4u.AIM.ui.view.login;
 import com.like4u.AIM.ui.UIObject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -16,12 +17,14 @@ import javafx.scene.control.Button;
  * @author Zhang Min
  * @version 1.0
  * @Date 2023/9/26 21:56
+ * 初始化登录页面的组件，将ui组件转换为java对象，类似于Js的document
  */
 public abstract class LoginInit extends UIObject {
     private static final String RESOURCE_NAME = "/fxml/login/login.fxml";
 
     protected ILoginEvent loginEvent;
 
+    public Label loginFailMessage;
     public Button login_min; // 登陆窗口最小化
     public Button login_close; // 登陆窗口退出
     public Button login_button; // 登陆按钮
@@ -44,12 +47,17 @@ public abstract class LoginInit extends UIObject {
         initView();
         initEventDefine();
     }
+
+    /**
+     * 组件绑定
+     */
     private void obtain() {
         login_min = $("login_min", Button.class);
         login_close = $("login_close", Button.class);
         login_button = $("login_button", Button.class);
         userId = $("userId", TextField.class);
         userPassword = $("userPassword", PasswordField.class);
+        loginFailMessage=$("login_fail_message", Label.class);
     }
 
 }

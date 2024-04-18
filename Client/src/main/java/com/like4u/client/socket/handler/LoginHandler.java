@@ -2,6 +2,7 @@ package com.like4u.client.socket.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.like4u.AIM.ui.view.chat.IChatMethod;
+import com.like4u.AIM.ui.view.login.LoginController;
 import com.like4u.agreement.Enum.MsgTypeEnum;
 import com.like4u.agreement.Enum.MsgUserType;
 import com.like4u.agreement.message.LoginResponseMessage;
@@ -10,6 +11,7 @@ import com.like4u.agreement.protocol.dto.ChatTalkDto;
 import com.like4u.agreement.protocol.dto.GroupsDto;
 import com.like4u.agreement.protocol.dto.UserFriendDto;
 import com.like4u.client.application.UIService;
+import com.like4u.client.infrastructure.util.BeanUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import javafx.application.Platform;
@@ -37,7 +39,8 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginResponseMessa
         System.out.println("\r\n> msg handler ing ...");
         System.out.println("消息内容：" + JSON.toJSONString(msg));
         if (!msg.isSuccess()) {
-            System.out.println("登陆失败");
+            LoginController loginController = BeanUtil.getBean("LoginController", LoginController.class);
+            loginController.doLoginError();
             return;
         }
         Platform.runLater(() -> {

@@ -31,7 +31,7 @@ public class Application extends SpringBootServletInitializer implements Command
     @Resource
     private ChatServer chatServer;
 
-    @Override
+ @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(Application.class);
     }

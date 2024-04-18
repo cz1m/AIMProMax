@@ -1,7 +1,13 @@
 package com.like4u.server.infrastructrue.comon;
 
+/**
+ * 前后端交互类
+ */
 public class EasyResult {
-
+    /**
+     * code状态码 1失败 0成功
+     * todo：跑起来后改成枚举类方便后期维护
+     */
     private Integer code;
     private String msg;
     private Long count;

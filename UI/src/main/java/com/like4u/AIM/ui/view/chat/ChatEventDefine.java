@@ -125,7 +125,14 @@ public class ChatEventDefine {
         TextArea txt_input = chatInit.$("txt_input", TextArea.class);
         txt_input.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                doEventSendMsg();
+                event.consume();
+                if (event.isControlDown()){
+                    txt_input.appendText(System.lineSeparator());
+                }else {
+                    String text = txt_input.getText();
+                    System.out.println(text);
+                    doEventSendMsg();
+                }
             }
         });
     }

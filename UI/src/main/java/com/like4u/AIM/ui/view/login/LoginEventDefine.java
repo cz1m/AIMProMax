@@ -35,8 +35,18 @@ public class LoginEventDefine {
     // 事件；登陆
     private void doEventLogin() {
         loginInit.login_button.setOnAction(event -> {
-            loginEvent.doLoginCheck(loginInit.userId.getText(),
+            // 假设 doLoginCheck 方法现在返回一个布尔值表示成功或失败
+            System.out.println("客户端发送消息");
+          loginEvent.doLoginCheck(loginInit.userId.getText(),
                     loginInit.userPassword.getText());
+            /*if (!loginSuccess) {
+                // 如果登录失败，显示登录失败的消息
+                loginInit.loginFailMessage.setVisible(true);
+            } else {
+                // 如果登录成功，隐藏登录失败的消息（如果之前显示过）
+                loginInit.loginFailMessage.setVisible(false);
+                // 可以在这里处理登录成功后的逻辑
+            }*/
         });
     }
 }

@@ -8,5 +8,6 @@ package com.like4u.client;
 public class ToStart {
     public static void main(String[] args) {
         Application.main(args);
+
     }
 }

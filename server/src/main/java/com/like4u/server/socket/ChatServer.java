@@ -21,7 +21,7 @@ import java.util.concurrent.Callable;
  * @author Zhang Min
  * @version 1.0
  * @Date 2023/9/15 19:36
- *
+ * 通讯管理类
  */
 @Slf4j
 @Service("ChatServer")

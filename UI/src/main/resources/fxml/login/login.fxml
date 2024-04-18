@@ -13,7 +13,7 @@
             <children>
                 <!--logo-->
                 <Label id="login_logo" styleClass="logo" layoutX="10" layoutY="5"
-                       prefWidth="200" prefHeight="15" text="憨憨 · 语约" style="-fx-textfill:#666666;"/>
+                       prefWidth="200" prefHeight="15" text="AIM" style="-fx-textfill:#666666;"/>
                 <!--最小化-->
                 <Button id="login_min" styleClass="min" layoutX="454" prefWidth="43"
                         prefHeight="32"/>
@@ -43,20 +43,23 @@
         </padding>
         </PasswordField>
 
-        <!--登录按钮-->
-        <Button id="login_button" styleClass="login_button" layoutX="200" layoutY="345"
-                prefWidth="250" prefHeight="45" text="登 陆"/>
-
-        <Label id="slogan" layoutX="5" layoutY="398" prefWidth="400" prefHeight="15"
-               text="v1.0 真的聊天室 | https://bugstack.cn">
+        <Label id="login_fail_message" layoutX="200" layoutY="310" prefWidth="250" prefHeight="30"
+               text="登录失败，请重试！" visible="false">
             <font>
                 <Font size="12"/>
             </font>
         </Label>
 
 
+        <!--登录按钮-->
+        <Button id="login_button" styleClass="login_button" layoutX="200" layoutY="345"
+                prefWidth="250" prefHeight="45" text="登 陆"/>
 
-
-
+        <Label id="slogan" layoutX="5" layoutY="398" prefWidth="400" prefHeight="15"
+               text="v1.0 真的聊天室 ">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
     </children>
 </Pane>
