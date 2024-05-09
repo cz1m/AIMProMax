@@ -34,6 +34,8 @@ public abstract class Message implements Serializable {
     public static final int MsgResponseMessage=12;
     public static final int MsgGroupRequestMessage=13;
     public static final int MsgGroupResponseMessage=14;
+    public static final int GroupMemberRequest=15;
+    public static final int GroupMemberResponse=16;
 
     private static final Map<Integer, Class<?>> messageClasses = new HashMap<>();
 
@@ -52,5 +54,7 @@ public abstract class Message implements Serializable {
         messageClasses.put(MsgResponseMessage,com.like4u.agreement.message.MsgResponseMessage.class);
         messageClasses.put(MsgGroupRequestMessage,com.like4u.agreement.message.MsgGroupRequestMessage.class);
         messageClasses.put(MsgGroupResponseMessage,com.like4u.agreement.message.MsgGroupResponseMessage.class);
+        messageClasses.put(GroupMemberRequest,com.like4u.agreement.message.GroupMemberRequest.class);
+        messageClasses.put(GroupMemberResponse,com.like4u.agreement.message.GroupMemberResponse.class);
     }
 }

@@ -110,4 +110,11 @@ public interface IUserRepository {
      */
     List<String> queryTalkBoxGroupsIdList(String userId);
 
+    /**
+     * 查询群聊里的成员信息
+     * @param groupId 群号
+     * @return 用户信息集合
+     */
+
+    List<UserFriendInfo> queryGroupMembers(String groupId);
 }

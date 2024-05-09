@@ -16,9 +16,17 @@
         WHERE u.userId=#{userId}
     </select>
 
+
     <resultMap id="queryGroupsByUser" type="com.like4u.server.infrastructrue.dto.UserGroupDto">
        <collection property="groups" ofType="com.like4u.server.infrastructrue.po.Groups">
            <result column="groupId" property="groupId"/>
        </collection>
     </resultMap>
+
+    <select id="queryGroupsMemberById" resultType="com.like4u.server.domain.user.model.UserFriendInfo">
+        SELECT u.userId AS friendId, u.userNickName AS friendName, u.userHead AS friendHead
+        FROM `user` u
+        LEFT JOIN user_group ug ON u.userId = ug.userId
+        WHERE ug.groupId = #{groupId}
+    </select>
 </mapper>

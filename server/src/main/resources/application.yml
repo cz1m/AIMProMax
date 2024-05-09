@@ -23,5 +23,12 @@ mybatis:
   config-location:  classpath:/mybatis/config/mybatis-config.xml
 
 mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:/mybatis/mapper/*.xml
-  config-location:  classpath:/mybatis/config/mybatis-config.xml
+
+
+interceptor:
+  key: abcdefghijklmnopqrstuvwxyz0123456789
+  mode: JWT
+  whiteList: /api/login/,/api/loginSession/

@@ -216,6 +216,7 @@ public class ChatView {
 
     /**
      * group_bar_chat：填充对话列表 & 对话框名称
+     * 把node的内容填充到右侧主页面
      *
      * @param id   用户、群组等ID
      * @param name 用户、群组等名称

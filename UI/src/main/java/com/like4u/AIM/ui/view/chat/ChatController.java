@@ -3,14 +3,14 @@ package com.like4u.AIM.ui.view.chat;
 import com.like4u.AIM.ui.UIObject;
 import com.like4u.AIM.ui.util.CacheUtil;
 import com.like4u.AIM.ui.util.Ids;
+
+import com.like4u.AIM.ui.util.SafeDoubleCheckSingleton;
 import com.like4u.AIM.ui.view.chat.data.GroupsData;
 import com.like4u.AIM.ui.view.chat.data.RemindCount;
 import com.like4u.AIM.ui.view.chat.data.TalkData;
 import com.like4u.AIM.ui.view.chat.element.group_bar_chat.ElementInfoBox;
 import com.like4u.AIM.ui.view.chat.element.group_bar_chat.ElementTalk;
-import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendGroup;
-import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendLuckUser;
-import com.like4u.AIM.ui.view.chat.element.group_bar_friend.ElementFriendUser;
+import com.like4u.AIM.ui.view.chat.element.group_bar_friend.*;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,11 +20,16 @@ import javafx.scene.layout.Pane;
 
 
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 
 /**
  *对话框接口方法实现
  */
 public class ChatController extends ChatInit implements IChatMethod {
+    public static List<GroupMember> userFriendList =new Vector<>();
 
     private ChatEventDefine chatEventDefine;
     private ChatView chatView;
@@ -286,14 +291,47 @@ public class ChatController extends ChatInit implements IChatMethod {
         sendMsgButton.setLayoutY(450);
         sendMsgButton.setText("发送消息");
         chatEventDefine.doEventOpenFriendGroupSendMsg(sendMsgButton, groupId, groupName, groupHead);
+
+
+      /*  ListView<Pane> groupMembers = addGroupUser();*/
         children.add(sendMsgButton);
 
+
         // 添加监听事件
+
         pane.setOnMousePressed(event -> {
-            clearViewListSelectedAll($("friendList", ListView.class), $("userListView", ListView.class));
-            chatView.setContentPaneBox(groupId, groupName, detailContent);
+            //填充群聊群成员信息
+            chatEvent.doGroupMemberSearch(groupId);
+            SafeDoubleCheckSingleton lock = SafeDoubleCheckSingleton.getInstance();
+            userFriendList=new Vector<>();
+
+            synchronized (lock) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                ListView<Pane> groupMembers = addGroupUser(userFriendList);
+                children.add(groupMembers);
+                //将加载好的主页面画到右面
+                clearViewListSelectedAll($("friendList", ListView.class), $("userListView", ListView.class));
+                chatView.setContentPaneBox(groupId, groupName, detailContent);
+            }
         });
         chatView.setContentPaneBox(groupId, groupName, detailContent);
+    }
+    public ListView<Pane> addGroupUser(List<GroupMember> userFriendList ){
+        ListView<Pane> groupMembers = new ListView<>();
+        ObservableList<Pane> groupMember = groupMembers.getItems();
+
+        for (GroupMember user:userFriendList){
+            System.out.println("ui添加用户表"+user);
+            ElementUser elementUser = new ElementUser(user.getFriendId(),user.getFriendName(),user.getFriendHead());
+            Pane pane = elementUser.pane();
+            groupMember.add(pane);
+        }
+
+        return groupMembers;
     }
 
     /**

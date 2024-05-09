@@ -214,6 +214,13 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<String> queryTalkBoxGroupsIdList(String userId) {
+
         return talkBoxDao.queryTalkBoxGroupsIdList(userId);
+    }
+
+    @Override
+    public List<UserFriendInfo> queryGroupMembers(String groupId) {
+        return groupsDao.queryGroupsMemberById(groupId);
+
     }
 }

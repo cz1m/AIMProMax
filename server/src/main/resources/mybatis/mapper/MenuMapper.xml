@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.like4u.server.domain.inet.repository.MenuMapper">
+
+    <select id="findByUsername" resultType="com.like4u.server.infrastructrue.po.Menu">
+
+        select menu.* from menu
+        inner join role_menu rm on menu.id=rm.menu_id
+        where rm.role_id in
+        (
+        select ur.role_id from user_role ur
+        inner join user u on ur.user_id=u.id
+        where u.userNickName = #{username}
+        )
+    </select>
+</mapper>

@@ -93,4 +93,11 @@ public class ChatEvent implements IChatEvent {
         Channel channel = BeanUtil.getBean("channel", Channel.class);
         channel.writeAndFlush(new AddFriendRequestMessage(userId,friendId));
     }
+
+    @Override
+    public void doGroupMemberSearch(String groupId) {
+        Channel channel = BeanUtil.getBean("channel", Channel.class);
+        channel.writeAndFlush(new GroupMemberRequest(groupId));
+        System.out.println("触发查找全部群成员事件");
+    }
 }

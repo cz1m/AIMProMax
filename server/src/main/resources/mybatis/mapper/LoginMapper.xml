@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.like4u.server.domain.inet.repository.LoginMapper">
+
+    <select id="loginCheck" resultType="com.like4u.server.infrastructrue.po.LoginDto">
+        select userId,userPassword,userNickName,userHead from user where
+        userId=#{dto.userId}
+        and userPassword =#{dto.userPassword}
+    </select>
+</mapper>

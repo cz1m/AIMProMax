@@ -70,6 +70,11 @@ public class Application extends javafx.application.Application {
             public void doEventAddLuckUser(String userId, String friendId) {
                 System.out.println("添加好友：" + friendId);
             }
+
+            @Override
+            public void doGroupMemberSearch(String groupId) {
+
+            }
         });
         chat.doShow();
         chat.setUserInfo("1000001", "拎包冲", "02_50");

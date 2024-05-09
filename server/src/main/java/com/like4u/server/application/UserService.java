@@ -2,6 +2,7 @@ package com.like4u.server.application;
 
 
 
+import com.like4u.agreement.protocol.dto.UserFriendDto;
 import com.like4u.server.domain.user.model.*;
 import com.like4u.server.infrastructrue.po.UserFriend;
 
@@ -119,5 +120,7 @@ public interface UserService {
      * @return       群组Id
      */
     List<String> queryTalkBoxGroupsIdList(String userId);
+
+    List<UserFriendInfo> queryGroupMembers(String groupId);
 
 }
